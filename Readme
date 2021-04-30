@@ -1,0 +1,3 @@
+Clone the Bot's repo.
+Use "npm install" in the Bot's repository to install necessary dependencies.
+Then execute the bot using "node bot.js".
