@@ -5,13 +5,13 @@ const { exit } = require('process');
 const { resolve } = require('path');
 
 module.exports = {
-    name: 'abs',
-    description: 'Look for a precise mob\'s abilities from Dofensive.',
+    name: 'dreams',
+    description: 'Look for a precise mob\'s stats, calculated with Dreams formula.',
     async execute(message, args) {
         if (!args.length)
             return message.channel.send('MANQUE LES ARGUMENTS');
         if (args[0] == "help")
-            return message.channel.send("Utilisation de la commande \"Abs\": .abs [Nom du monstre]\nLa commande supporte les espaces, mais ne supporte pas la recherche de plusieurs monstres en même temps. Si le monstre renvoyé est incorrect, réessayez en plaçant des majuscules aux différents mots.");
+            return message.channel.send("Utilisation de la commande \"Songes\": .songes [Nom du monstre] [Niveau]\nLa commande supporte les espaces, mais pas la recherche de plusieurs monstres en même temps. Pour plus d'informations sur un monstre, utiliser la commande Abs.");
 
         async function test() {
             fetch('https://dofensive.com/api/monsterPreview.php?Language=fr')
@@ -21,7 +21,7 @@ module.exports = {
                     var test = await json.find(x => x.Name == args.join(' '));
                     if (test == undefined) {
                         console.log("Erreur : nom");
-                        message.channel.send("Erreur lors de l'exécution de la commande. Vérifiez l'orthographe du nom entré.\n\".abs help\" pour plus d'informations sur cette commande.");
+                        message.channel.send("Erreur lors de l'exécution de la commande. Vérifiez l'orthographe du nom entré.\n\".dreams help\" pour plus d'informations sur cette commande.");
                         return;
                     }
                                      
@@ -36,8 +36,6 @@ module.exports = {
                                         fetch(`https://dofensive.com/api/spell.php?Id=${x.Id}&Language=fr`)
                                             .then(res => res.json())
                                             .then(async function (json) {
-                                                // console.log(json.Levels[0].Effects[0].Actions);
-                                                // console.log("--------------------------------------------------------------------------------------\n");
                                                 resolve({ 
                                                     name: x.Name, 
                                                     value: 
@@ -95,31 +93,9 @@ module.exports = {
                         });
                 }).catch(reason => console.log(reason));
         }
-        async function test3() {
-            fetch('https://dofensive.com/api/monsterPreview.php?Language=fr')
-            .catch(reason => console.log(reason))
-            .then(res => res.json()).catch(reason => console.log(reason))
-            .then(async function (json) {
-                var test = await json.find(x => x.Name == args.join(' '));
-                                
-                fetch(`https://dofensive.com/api/monster.php?Id=${test.Id}&Language=fr`)
-                    .then(res => res.json())
-                    .then(async function (json) {
-                        const embed = new Discord.MessageEmbed()
-                            .setColor('#e5t6y7')
-                            .setTitle('Résistances')
-                            .addField('Neutre :',json.Grades[4].Resistances.Neutral+" %",false)
-                            .addField('Terre : ',json.Grades[4].Resistances.Earth+" %",false)
-                            .addField('Feu : ',json.Grades[4].Resistances.Fire+" %",false)
-                            .addField('Eau : ',json.Grades[4].Resistances.Water+" %",false)
-                            .addField('Air : ',json.Grades[4].Resistances.Air+" %",false)
-                        message.channel.send({ embed });
-                    });
-            }).catch(reason => console.log(reason));
-        }
+
         test();
         test2();
-        test3();
     }
 
 };
