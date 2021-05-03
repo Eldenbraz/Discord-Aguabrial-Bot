@@ -73,6 +73,28 @@ module.exports = {
                         });
                 }).catch(reason => console.log(reason));
         }
+        async function test3() {
+            fetch('https://dofensive.com/api/monsterPreview.php?Language=fr')
+            .catch(reason => console.log(reason))
+            .then(res => res.json()).catch(reason => console.log(reason))
+            .then(async function (json) {
+                var test = await json.find(x => x.Name == args.join(' '));
+                                
+                fetch(`https://dofensive.com/api/monster.php?Id=${test.Id}&Language=fr`)
+                    .then(res => res.json())
+                    .then(async function (json) {
+                        const embed = new Discord.MessageEmbed()
+                            .setColor('#e5t6y7')
+                            .setTitle('Résistances')
+                            .addField(`<:res_neutral:838851182965424129>`,json.Grades[4].Resistances.Neutral+" %",false)
+                            .addField('<:res_earth:838851183321940009>',json.Grades[4].Resistances.Earth+" %",false)
+                            .addField('<:res_fire:838851183418015804>',json.Grades[4].Resistances.Fire+" %",false)
+                            .addField('<:res_water:838851183065563176>',json.Grades[4].Resistances.Water+" %",false)
+                            .addField('<:res_air:838851197137453119>',json.Grades[4].Resistances.Air+" %",false)
+                        message.channel.send({ embed });
+                    });
+            }).catch(reason => console.log(reason));
+        }
         async function test2() {
             fetch('https://dofensive.com/api/monsterPreview.php?Language=fr')
                 .catch(reason => console.log(reason))
@@ -95,28 +117,7 @@ module.exports = {
                         });
                 }).catch(reason => console.log(reason));
         }
-        async function test3() {
-            fetch('https://dofensive.com/api/monsterPreview.php?Language=fr')
-            .catch(reason => console.log(reason))
-            .then(res => res.json()).catch(reason => console.log(reason))
-            .then(async function (json) {
-                var test = await json.find(x => x.Name == args.join(' '));
-                                
-                fetch(`https://dofensive.com/api/monster.php?Id=${test.Id}&Language=fr`)
-                    .then(res => res.json())
-                    .then(async function (json) {
-                        const embed = new Discord.MessageEmbed()
-                            .setColor('#e5t6y7')
-                            .setTitle('Résistances')
-                            .addField('Neutre :',json.Grades[4].Resistances.Neutral+" %",false)
-                            .addField('Terre : ',json.Grades[4].Resistances.Earth+" %",false)
-                            .addField('Feu : ',json.Grades[4].Resistances.Fire+" %",false)
-                            .addField('Eau : ',json.Grades[4].Resistances.Water+" %",false)
-                            .addField('Air : ',json.Grades[4].Resistances.Air+" %",false)
-                        message.channel.send({ embed });
-                    });
-            }).catch(reason => console.log(reason));
-        }
+
         test();
         test2();
         test3();
