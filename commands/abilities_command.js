@@ -118,8 +118,8 @@ module.exports = {
                 }).catch(reason => console.log(reason));
         }
 
-        test();
         test2();
+        test();
         test3();
     }
 
