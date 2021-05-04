@@ -58,10 +58,18 @@ module.exports = {
                                                 retour += ("\`\`\`apache\n")
                                                 for (a = 0; a < json.Levels[0].Effects.length; a++) {
                                                     buffer = (json.Levels[0].Effects[a].Description)
+                                                    // console.log(json.Levels[0].Effects[a].Description)
                                                     for (b = 0; b < json.Levels[0].Effects[a].Actions.length; b++) {
-                                                        console.log(buffer)
-                                                        console.log("#"+(b+1))
+                                                        d = ((json.Levels[0].Effects[a].Description).match(/#/g)).length
                                                         buffer = (buffer.replace("#"+(b+1),json.Levels[0].Effects[a].Actions[b].Value.Name))
+                                                        // console.log(json.Levels[0].Effects[a].Actions[b].Value.Name+" + Number = "+b)
+                                                        // console.log("--------------------------------------\n")
+                                                        // console.log("["+buffer+"]");
+                                                        for (c = (b+1); d = buffer.match(/#/g) != null; c++) {
+                                                            buffer = (buffer.replace("#"+(b+c),json.Levels[0].Effects[a].Actions[b+1]?.Value.Name))
+                                                            buffer = (buffer.replace("#"+(b+c),json.Levels[0].Effects[a].Actions[b].Value.Name))
+                                                            // console.log("The b+c is "+(b+c)+"\n")
+                                                        }
                                                     }
                                                     retour += (buffer+"\n")
                                                 }
@@ -70,15 +78,6 @@ module.exports = {
                                                 resolve({
                                                     name: x.Name, 
                                                     value: retour 
-                                                    
-                                                    // (json.Levels[0].Effects[0].Actions[1]?.Value.Name ? `\`\`\`apache\n${json.Levels[0].Effects[0].Description.replace("#1",`${json.Levels[0].Effects[0].Actions[0].Value.Name}`).replace("#2",`${json.Levels[0].Effects[0].Actions[1].Value.Name}`)}\n` : (json.Levels[0].Effects[0].Description.replace("#1",`${json.Levels[0].Effects[0].Actions[0]?.Value.Name}`) ? `\`\`\`apache\n${json.Levels[0].Effects[0].Description.replace("#1",`${json.Levels[0].Effects[0].Actions[0]?.Value.Name}`)}\n` : "")) +
-                                                    // (`<Zone d'effet> : ${json.Levels[0].Effects[0].Zone.Value}\`\`\`\n`) +
-                                                    // (json.Levels[0].Effects[1]?.Actions[1]?.Value.Name ? `\`\`\`apache\n${json.Levels[0].Effects[1].Description.replace("#1",`${json.Levels[0].Effects[1].Actions[0].Value.Name}`).replace("#2",`${json.Levels[0].Effects[1].Actions[1].Value.Name}`)}\n` : (json.Levels[0].Effects[1]?.Description?.replace("#1",`${json.Levels[0].Effects[1].Actions[0]?.Value.Name}`) ? `\`\`\`apache\n${json.Levels[0].Effects[1]?.Description?.replace("#1",`${json.Levels[0].Effects[1].Actions[0]?.Value.Name}`)}\n` : "")) +
-                                                    // (json.Levels[0].Effects[1]?.Zone.Value ? `<Zone d'effet> : ${json.Levels[0].Effects[1]?.Zone.Value}\`\`\`\n` : "") +
-                                                    // (json.Levels[0].Effects[2]?.Actions[1]?.Value.Name ? `\`\`\`apache\n${json.Levels[0].Effects[2].Description.replace("#1",`${json.Levels[0].Effects[2].Actions[0].Value.Name}`).replace("#2",`${json.Levels[0].Effects[2].Actions[1].Value.Name}`)}\n` : (json.Levels[0].Effects[2]?.Description?.replace("#1",`${json.Levels[0].Effects[2].Actions[0]?.Value.Name}`) ? `\`\`\`apache\n${json.Levels[0].Effects[2]?.Description?.replace("#1",`${json.Levels[0].Effects[2].Actions[0]?.Value.Name}`)}\n` : "")) +
-                                                    // (json.Levels[0].Effects[2]?.Zone.Value ? `<Zone d'effet> : ${json.Levels[0].Effects[2]?.Zone.Value}\`\`\`\n` : "") +
-                                                    // (json.Levels[0].Effects[3]?.Actions[1]?.Value.Name ? `\`\`\`apache\n${json.Levels[0].Effects[3].Description.replace("#1",`${json.Levels[0].Effects[3].Actions[0].Value.Name}`).replace("#2",`${json.Levels[0].Effects[3].Actions[1].Value.Name}`)}\n` : (json.Levels[0].Effects[3]?.Description?.replace("#1",`${json.Levels[0].Effects[3].Actions[0]?.Value.Name}`) ? `\`\`\`apache\n${json.Levels[0].Effects[3]?.Description?.replace("#1",`${json.Levels[0].Effects[3].Actions[0]?.Value.Name}`)}\n` : "")) +
-                                                    // (json.Levels[0].Effects[3]?.Zone.Value ? `<Zone d'effet> : ${json.Levels[0].Effects[3]?.Zone.Value}\`\`\`\n` : "") 
                                                 });
                                             })
                                     })
