@@ -11,7 +11,7 @@ module.exports = {
         if (!args.length)
             return message.channel.send('MANQUE LES ARGUMENTS');
         if (args[0] == "help")
-            return message.channel.send("Utilisation de la commande \"Songes\": .songes [Nom du monstre] [Niveau]\nLa commande supporte les espaces, mais pas la recherche de plusieurs monstres en même temps. Pour plus d'informations sur un monstre, utiliser la commande Abs.");
+            return message.channel.send("Utilisation de la commande \"Dreams\": .dreams [Nom du monstre] [Niveau]\nLa commande supporte les espaces, mais pas la recherche de plusieurs monstres en même temps. Pour plus d'informations sur un monstre, utiliser la commande Abs.");
         
         var level_songe = args[args.length-1]
         args.pop()
