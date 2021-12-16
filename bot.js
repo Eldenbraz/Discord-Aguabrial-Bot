@@ -17,7 +17,7 @@ for (const file of commandFiles) {
 }
 
 client.on('message', message => {
-    if (message.author.bot) return;
+    if (message.author.bot || message.channel.type != 'text' || !message.content.startsWith('?')) return;
 //    if (message.channel.author.role.id);
     
     const args = message.content.slice(config.prefix.length).split(' ');
@@ -29,7 +29,7 @@ client.on('message', message => {
         client.commands.get(command).execute(message, args);
     } catch (error) {
         console.error(error);
-        message.reply(`there was an error trying to execute command: ${command}`);
+        message.reply(`There was an error trying to execute command: ${command}`);
     }
 });
 

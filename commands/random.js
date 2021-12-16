@@ -14,7 +14,7 @@ module.exports = {
                 "title": "Bien vu ça "+message.author.username,
                 "description": "C'est réussi...",
                 "color": 7584788,
-            };
+            }
         }
         else if (result == 'lose') {
             embed = {
